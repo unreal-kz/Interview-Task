@@ -4,6 +4,8 @@ import pathlib
 
 import json, jsonschema
 
+import ast
+
 from schema import Schema
 from jsonschema import validate
 
@@ -25,12 +27,11 @@ for file in sorted(os.listdir(json_folder)):
         json_data.append(json.load(f))
         
 # Testing
-# print(len(result))
-# for k,v in enumerate(json_data):
-#     if isinstance(v,dict) and 'event' in v:
-#         print(k, v['event'])
-#     else:
-#         print(k, 'Not')
+for k,v in enumerate(json_data):
+    if isinstance(v,dict) and 'event' in v:
+        print(k, v['event'])
+    else:
+        print(k, 'Not')
 
 # Reading .schema files from 'schema' folder
 # print (os.listdir(schema_folder))
@@ -39,6 +40,7 @@ for k,v in enumerate(os.listdir(schema_folder)):
     with open(os.path.join(schema_folder, v)) as f:
         schema_dict[key] = f.read()
         # schema_dict[key] = json.loads(f.read())
+        # schema_dict[key] = ast.literal_eval(f.read())
         # Testing
         # schema_list.append(f.read())
 
@@ -56,6 +58,7 @@ for k,v in enumerate(os.listdir(schema_folder)):
 
 #Testing
 # print(schema_dict.keys())
+# print(schema_dict['label_selected'].keys())
 # print(schema_dict['label_selected'])
 # for k,v in schema_dict:
 #     print(schema_dict.keys())
